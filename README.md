@@ -2,8 +2,8 @@
 
 Team:
 
-* Josh - Sales
-* Thao - Service
+* Josh - Service
+* Thao - Sales
 
 ## Design
 
