@@ -18,6 +18,7 @@ class TechnicianDetailEncoder(ModelEncoder):
     properties = [
         'name',
         'employee_number',
+        'id',
     ]
 
 class ServiceAppointmentListEncoder(ModelEncoder):

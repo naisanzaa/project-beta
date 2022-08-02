@@ -49,7 +49,7 @@ export default function ServiceAppointmentList() {
     const handleFinish = async(service) => {
         const data = {...service}
         data.finished = true
-        data.technician = 
+        data.technician = data.technician.id
         console.log(data);
         const fetchConfig = {
             method: 'PUT',
@@ -61,7 +61,8 @@ export default function ServiceAppointmentList() {
         const id = service.id
         console.log(id)
         const serviceAppointmentUrl = `http://localhost:8080/api/service-appointments/${id}/`
-        const res = fetch(serviceAppointmentUrl, fetchConfig)
+        const res = await fetch(serviceAppointmentUrl, fetchConfig)
+        console.log(res)
         if (res.ok) {
             setServiceAppointments(
                 serviceAppointments.filter((appointment) => {
