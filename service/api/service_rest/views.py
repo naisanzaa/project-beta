@@ -1,3 +1,4 @@
+from enum import auto
 from json import encoder
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
@@ -9,7 +10,7 @@ from .encoders import (AutomovileVOEncoder, TechnicianListEncoder, TechnicianDet
 from .models import Technician, AutomobileVO, ServiceAppointment
 
 # Need a list, create, and delete view for techs, and appts
-# Should be fine to use same encoder for all views since when listing, I want all
+# Should be fine to use same encoder for all views since when listing,
 #   all properties shown on front-end
 
 @require_http_methods(['GET', 'POST'])
@@ -46,13 +47,19 @@ def api_technician(request):
             encoder=TechnicianListEncoder
         )
     else:
-        content = json.loads(request.body)
-        technician = Technician.objects.create(**content)
-        return JsonResponse(
-            technician,
-            encoder=TechnicianDetailEncoder,
-            safe=False,
-        )
+        try:
+            content = json.loads(request.body)
+            technician = Technician.objects.create(**content)
+            return JsonResponse(
+                technician,
+                encoder=TechnicianDetailEncoder,
+                safe=False,
+            )
+        except:
+            return JsonResponse(
+                {"message": "Make sure name and employee numbers are filled out!"},
+                status=400,
+            )
 
 
 @require_http_methods('DELETE')
@@ -121,11 +128,100 @@ def api_service_appointment(request):
                 {"message": "Technician not found"},
                 status=404,
             )
-        service_appointment = ServiceAppointment.objects.create(**content)
+        try:
+            service_appointment = ServiceAppointment.objects.create(**content)
+            return JsonResponse(
+                service_appointment,
+                encoder=ServiceAppointmentDetailEncoder,
+                safe=False,
+            )
+        except:
+            return JsonResponse(
+                {"message": "Make sure all fields are filled out properly!"},
+                status=400,
+            )
+
+@require_http_methods(['PUT', 'DELETE'])
+def api_change_service_appointment(request, pk):
+    """
+    Single object API for the purpose of either changing the properties
+    in an existing service_appointment (mostly to change the finished boolean)
+    or deleting a service appointment with its id being the main identifier for both
+    """
+    if request.method == 'DELETE':
+        try:
+            service_appointment = ServiceAppointment.objects.get(id=pk)
+            service_appointment.delete()
+            return JsonResponse(
+                service_appointment,
+                encoder=ServiceAppointmentDetailEncoder,
+                safe=False,
+            )
+        except service_appointment.DoesNotExist:
+            return JsonResponse(
+                    {"message": "Service appointment does not exist"},
+                    status=404,
+                )
+    else:
+        content = json.loads(request.body)
+        print("CONTENT IS HERE", content)
+        ServiceAppointment.objects.filter(id=pk).update(**content)
+        service_appointment = ServiceAppointment.objects.get(id=pk)
         return JsonResponse(
             service_appointment,
             encoder=ServiceAppointmentDetailEncoder,
             safe=False,
+        )
+
+@require_http_methods('GET')
+def api_automobileVO(request):
+    """
+    RESTful API for AutomobileVO object.
+
+    Get request returns a dict with key service_appointments that contains a
+    list of service appointments and their properties.
+
+    This function exists so that I can call an api route in react to compare VINs in the inventory and VINs that are getting serviced
+    """
+    if request.method == 'GET':
+        autos = AutomobileVO.objects.all()
+        return JsonResponse(
+            {'autos': autos},
+            encoder=AutomovileVOEncoder
+        )
+
+@require_http_methods('GET')
+def api_service_history(request):
+    """
+    RESTful API for ServiceAppointment Object history.
+
+    Get request returns a dict with key service_appointments filtered by the finished status.
+    History should only return appointments that have the boolean finished = true.
+
+    ServiceAppointment object looks like (serv_app)
+    {
+        'VIN': vehicle identification number,
+        'owner': name of owner,
+        'date_time': date and time of appointment,
+        'technician': technician assigned to the appointment; this will be a technician object for the value,
+        'reason': reason for the appointment
+    }
+
+    List looks like
+    {
+        'service_appointments': [
+            serv_app1,
+            serv_app2,
+            ...
+        ]
+    }
+    with each serv_app being in the format of the object described earlier
+    """
+    if request.method == 'GET':
+        service_appointments = ServiceAppointment.objects.filter(finished=True).values()
+        return JsonResponse(
+            {'service_appointments': service_appointments},
+            encoder=ServiceAppointmentListEncoder
         )
 
 @require_http_methods('DELETE')
@@ -147,3 +243,4 @@ def api_delete_service_appointment(request, pk):
                 {"message": "Service appointment does not exist"},
                 status=404,
             )
+

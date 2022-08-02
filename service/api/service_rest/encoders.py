@@ -29,6 +29,7 @@ class ServiceAppointmentListEncoder(ModelEncoder):
         'technician',
         'reason',
         'id',
+        'finished',
     ]
     encoders = {
         'technician': TechnicianDetailEncoder(),
@@ -42,6 +43,8 @@ class ServiceAppointmentDetailEncoder(ModelEncoder):
         'date_time',
         'technician',
         'reason',
+        'id',
+        'finished',
     ]
     encoders = {
         'technician': TechnicianDetailEncoder(),

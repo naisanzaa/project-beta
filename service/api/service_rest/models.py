@@ -3,18 +3,18 @@ from django.urls import reverse
 
 # Create your models here.
 class AutomobileVO(models.Model):
-    VIN = models.BigIntegerField()
+    VIN = models.CharField(max_length=30)
 
 class Technician(models.Model):
     name = models.CharField(max_length=30)
     employee_number = models.PositiveBigIntegerField()
-
+    
     def get_api_url(self):
         return reverse("api_technician", kwargs={"pk": self.pk})
 
 
 class ServiceAppointment(models.Model):
-    VIN = models.PositiveBigIntegerField()
+    VIN = models.CharField(max_length=30)
     owner = models.CharField(max_length=30)
     date_time = models.DateTimeField()
     technician = models.ForeignKey(
@@ -23,6 +23,7 @@ class ServiceAppointment(models.Model):
         on_delete=models.PROTECT
     )
     reason = models.TextField()
+    finished = models.BooleanField(default=False)
 
     def get_api_url(self):
         return reverse("api_service_appointment", kwargs={"pk": self.pk})
