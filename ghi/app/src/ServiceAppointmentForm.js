@@ -50,7 +50,7 @@ export default function ServiceAppointmentForm() {
         const serviceAppointmentUrl = 'http://localhost:8080/api/service-appointments/'
         const res = await fetch(serviceAppointmentUrl, fetchConfig)
         if (res.ok) {
-            const newServiceAppointment = res.json()
+            const newServiceAppointment = await res.json()
             console.log(newServiceAppointment)
 
             setServiceAppointment({
@@ -83,7 +83,7 @@ export default function ServiceAppointmentForm() {
                             </div>
                             <label htmlFor="owner">Date and Time</label>
                             <div className="form-floating mb-3" > 
-                                <DatePicker  onChange={handleChangeDate} 
+                                <DatePicker onChange={() => handleChangeDate(date)} 
                                     placeholder="Date and Time" name='date_time' 
                                     id="date_time" className="form-control" selected={date}
                                     value={serviceAppointment.date_time}

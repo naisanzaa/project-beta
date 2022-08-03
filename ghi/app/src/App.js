@@ -29,7 +29,7 @@ function App() {
           </Route>
           <Route path='models/'>
             <Route path='' element={<VehicleModelList />} />
-            <Route path='new/' element={<VehicleModelForm />} />
+            <Route path='new' element={<VehicleModelForm />} />
           </Route>
         </Routes>
       </div>
