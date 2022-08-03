@@ -42,6 +42,14 @@ function App() {
             <Route path="" element={<VehicleModelList />} />
             <Route path="new/" element={<VehicleModelForm />} />
           </Route>
+          <Route path="manufacturers/">
+            <Route path="" element={<ManufacturerList />} />
+            <Route path="new/" element={<ManufacturerForm />} />
+          </Route>
+          <Route path="models/">
+            <Route path="" element={<VehicleModelList />} />
+            <Route path="new/" element={<VehicleModelForm />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>
