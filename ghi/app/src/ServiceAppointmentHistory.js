@@ -21,6 +21,9 @@ export default function ServiceAppointmentHistory() {
         setAutomobileVOs(automobileVODict.autos)
     }
 
+    const [filteredData,setFilteredData] = useState(serviceAppointments);
+    const [searchQuery, setSearchQuery] = useState('');
+
     useEffect(() => {
         fetchServiceAppointments();
         fetchAutomobileVOs();
@@ -46,7 +49,18 @@ export default function ServiceAppointmentHistory() {
         return appointment.finished === true;
     }
 
- 
+    const handleChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearch = (event) =>{
+        event.preventDefault();
+        let result = [];
+        result = serviceAppointments.filter((data) => {
+            return data.VIN.search(searchQuery) !== -1;
+        });
+        setFilteredData(result);
+    }
 
     // if the vin matches a vin from the automobile inventory, highlight the row
     const conditionalRowStyle = (vin) => {
@@ -58,31 +72,40 @@ export default function ServiceAppointmentHistory() {
         }
     }
     return (
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>VIN</th>
-                    <th>Owner</th>
-                    <th>Date of Appointment</th>
-                    <th>Time of Appointment</th>
-                    <th>Technician</th>
-                </tr>
-            </thead>
-            <tbody>
-                {serviceAppointments.filter(appointmentFilter).map(appointment => {
-                    return (
-                        <tr key={appointment.id} style={ conditionalRowStyle(appointment.VIN) }>
-                            <td>{ appointment.VIN }</td>
-                            <td>{ appointment.owner }</td>
-                            <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
-                            <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
-                            <td>{ appointment.technician.name }</td>
-                            <td><button onClick={ () => handleDelete(appointment.id)}>Delete?</button></td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <div>
+            <form onSubmit={(event) =>handleSearch(event)} id="search-vin-form">
+                <div style={{ margin: '0 auto', marginTop: '10%' }}>
+                    <label>Search VIN:</label>
+                    <input onChange={handleChange} type="text" placeholder="Search VIN"/>
+                    <button type='submit' className="btn btn-primary">Search</button>
+                </div>
+            </form>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>VIN</th>
+                        <th>Owner</th>
+                        <th>Date of Appointment</th>
+                        <th>Time of Appointment</th>
+                        <th>Technician</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredData.filter(appointmentFilter).map(appointment => {
+                        return (
+                            <tr key={appointment.id} style={ conditionalRowStyle(appointment.VIN) }>
+                                <td>{ appointment.VIN }</td>
+                                <td>{ appointment.owner }</td>
+                                <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
+                                <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
+                                <td>{ appointment.technician.name }</td>
+                                <td><button onClick={ () => handleDelete(appointment.id)}>Delete?</button></td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }
 

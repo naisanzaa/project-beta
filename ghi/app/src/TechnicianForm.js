@@ -9,7 +9,7 @@ export default function TechnicianForm() {
         setTechnician({...technician, [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(technician);
         const fetchConfig = {
@@ -20,7 +20,7 @@ export default function TechnicianForm() {
             }
         }
         const technicianUrl = 'http://localhost:8080/api/technicians/'
-        const res = fetch(technicianUrl, fetchConfig)
+        const res = await fetch(technicianUrl, fetchConfig)
         if (res.ok) {
             const newTechnician = res.json()
             console.log(newTechnician)

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function ServiceAppointmentForm() {
     const [serviceAppointment, setServiceAppointment] = useState({
         VIN: '',
         owner: '',
-        date_time: '',
+        date_time: new Date(),
         technicians: [],
         reason: '',
     });
@@ -19,6 +21,11 @@ export default function ServiceAppointmentForm() {
         }
     }
 
+    const [date, setDate] = useState('');
+    const handleChangeDate = (date) => setDate(date)
+
+
+
     useEffect(() => {
         fetchTechnicians();
     });
@@ -27,9 +34,10 @@ export default function ServiceAppointmentForm() {
         setServiceAppointment({...serviceAppointment, [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {...serviceAppointment}
+        data.date_time = date
         delete data.technicians
         console.log(data);
         const fetchConfig = {
@@ -40,7 +48,7 @@ export default function ServiceAppointmentForm() {
             }
         }
         const serviceAppointmentUrl = 'http://localhost:8080/api/service-appointments/'
-        const res = fetch(serviceAppointmentUrl, fetchConfig)
+        const res = await fetch(serviceAppointmentUrl, fetchConfig)
         if (res.ok) {
             const newServiceAppointment = res.json()
             console.log(newServiceAppointment)
@@ -52,6 +60,7 @@ export default function ServiceAppointmentForm() {
                     technician: '',
                     reason: '',
             });
+            setDate({date_time: ''})
         };
     };
     return(
@@ -72,11 +81,17 @@ export default function ServiceAppointmentForm() {
                                     id="owner" className="form-control" value={serviceAppointment.owner} />
                                 <label htmlFor="owner">Owner Name</label>
                             </div>
-                            <div className="form-floating mb-3">
-                                <input onChange={handleChange} 
-                                    placeholder="Date and Time" required type="datetime" name='date_time' 
-                                    id="date_time" className="form-control" value={serviceAppointment.date_time} />
-                                <label htmlFor="date_time">Date and Time</label>
+                            <label htmlFor="owner">Date and Time</label>
+                            <div className="form-floating mb-3" > 
+                                <DatePicker  onChange={handleChangeDate} 
+                                    placeholder="Date and Time" name='date_time' 
+                                    id="date_time" className="form-control" selected={date}
+                                    value={serviceAppointment.date_time}
+                                    showTimeSelect
+                                    timeFormat="HH:mm"
+                                    timeIntervals={20}
+                                    timeCaption="time"
+                                    dateFormat="MMMM d, yyyy h:mm aa" />
                             </div>
                             <div className="mb-3">
                                 <select required onChange={handleChange} value={serviceAppointment.technician}
@@ -92,9 +107,10 @@ export default function ServiceAppointmentForm() {
                                 </select>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={handleChange} 
-                                    placeholder="Reason" required type="text" name='reason' 
-                                    id="reason" className="form-control" value={serviceAppointment.reason} />
+                                <textarea onChange={handleChange} 
+                                    placeholder="reason" required type="text" name='reason' 
+                                    id="reason" className="form-control" value={serviceAppointment.reason}>    
+                                </textarea>
                                 <label htmlFor="reason">Reason</label>
                             </div>
                             <button className="btn btn-primary">Create</button>
