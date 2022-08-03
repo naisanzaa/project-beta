@@ -35,6 +35,11 @@ function Nav() {
                 Register a Technician
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/model/new">
+                Register a Vehicle Model
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
