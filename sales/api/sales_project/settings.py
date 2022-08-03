@@ -27,6 +27,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    "corsheaders",
     "sales_rest.apps.SalesRestConfig",
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
