@@ -16,7 +16,7 @@ class SalesRecordForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async fetchAutomobiles() {
+  async componentDidMount() {
     const autosUrl = "http://localhost:8100/api/automobiles/";
     const autosResponse = await fetch(autosUrl);
     const { autos } = await autosResponse.json();
@@ -25,34 +25,24 @@ class SalesRecordForm extends React.Component {
       vins.push(auto);
     });
     this.setState({ ...this.state, autos: vins });
-  }
 
-  async fetchSalesStaffs() {
     const salesStaffsUrl = "http://localhost:8090/api/salesstaffs/";
     const salesStaffsResponse = await fetch(salesStaffsUrl);
     const { sales_staffs } = await salesStaffsResponse.json();
     let names = [];
-    sales_staffs.forEach((name) => {
+    sales_staffs.forEach((sales_staff) => {
       names.push(sales_staff);
     });
     this.setState({ ...this.state, sales_staffs: names });
-  }
 
-  async fetchCustomers() {
     const customersUrl = "http://localhost:8090/api/customers/";
     const customersResponse = await fetch(customersUrl);
     const { customers } = await customersResponse.json();
-    let names = [];
-    customers.forEach((name) => {
-      names.push(customer);
+    let customerNames = [];
+    customers.forEach((customer) => {
+      customerNames.push(customer);
     });
-    this.setState({ ...this.state, customers: names });
-  }
-
-  async componentDidMount() {
-    fetchAutomobiles();
-    fetchSalesStaffs();
-    fetchCustomers();
+    this.setState({ ...this.state, customers: customerNames });
   }
 
   handleChange(event) {
@@ -129,7 +119,7 @@ class SalesRecordForm extends React.Component {
                   <option value="">Choose a sales staff</option>
                   {this.state.sales_staffs.map((sales_staff) => {
                     return (
-                      <option key={sales_staff.name} value={sales_staff.id}>
+                      <option key={sales_staff.id} value={sales_staff.id}>
                         {sales_staff.name}
                       </option>
                     );
@@ -148,7 +138,7 @@ class SalesRecordForm extends React.Component {
                   <option value="">Choose a customer</option>
                   {this.state.customers.map((customer) => {
                     return (
-                      <option key={customer.name} value={customer.id}>
+                      <option key={customer.id} value={customer.id}>
                         {customer.name}
                       </option>
                     );
