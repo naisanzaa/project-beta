@@ -22,13 +22,13 @@ export default function ServiceAppointmentForm() {
     }
 
     const [date, setDate] = useState('');
-    const handleChangeDate = (date) => setDate(date)
+    const handleChangeDate = (date) => (date !== null) ? setDate(date): {};
 
 
 
     useEffect(() => {
         fetchTechnicians();
-    });
+    }, []);
 
     const handleChange = (event) => {
         setServiceAppointment({...serviceAppointment, [event.target.name]: event.target.value });
@@ -37,7 +37,7 @@ export default function ServiceAppointmentForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {...serviceAppointment}
-        data.date_time = date
+        data['date_time'] = date
         delete data.technicians
         console.log(data);
         const fetchConfig = {
@@ -60,7 +60,7 @@ export default function ServiceAppointmentForm() {
                     technician: '',
                     reason: '',
             });
-            setDate({date_time: ''})
+            setDate('')
         };
     };
     return(
@@ -83,7 +83,7 @@ export default function ServiceAppointmentForm() {
                             </div>
                             <label htmlFor="owner">Date and Time</label>
                             <div className="form-floating mb-3" > 
-                                <DatePicker onChange={() => handleChangeDate(date)} 
+                                <DatePicker onChange={handleChangeDate} 
                                     placeholder="Date and Time" name='date_time' 
                                     id="date_time" className="form-control" selected={date}
                                     value={serviceAppointment.date_time}
