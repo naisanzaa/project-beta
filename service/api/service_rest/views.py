@@ -164,7 +164,6 @@ def api_change_service_appointment(request, pk):
                 )
     else:
         content = json.loads(request.body)
-        print("CONTENT IS HERE", content)
         ServiceAppointment.objects.filter(id=pk).update(**content)
         service_appointment = ServiceAppointment.objects.get(id=pk)
         return JsonResponse(

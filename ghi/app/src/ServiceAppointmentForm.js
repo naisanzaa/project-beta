@@ -21,6 +21,8 @@ export default function ServiceAppointmentForm() {
         }
     }
 
+    // Custom date hook because date-picker hook is being used to get dates
+    //      in ISO format from a calendar and time selection interface.
     const [date, setDate] = useState('');
     const handleChangeDate = (date) => (date !== null) ? setDate(date): {};
 
