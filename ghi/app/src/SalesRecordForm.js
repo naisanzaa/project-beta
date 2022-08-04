@@ -5,27 +5,54 @@ class SalesRecordForm extends React.Component {
     super(props);
     this.state = {
       auto: "",
+      autos: [],
       sales_staff: "",
+      sales_staffs: [],
       customer: "",
+      customers: [],
       price: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  async componentDidMount() {
-    const autosUrl = "http://localhost:8100/api/automobiles/";
-    const salesStaffsUrl = "http://localhost:8090/api/salesstaffs/";
-    const customersUrl = "http://localhost:8090/api/customers/";
-    const response = await fetch(autosUrl, salesStaffsUrl, customersUrl);
 
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({
-        auto: data.autos,
-        sales_staff: data.sales_staffs,
-        customer: data.customers,
-      });
-    }
+  async fetchAutomobiles() {
+    const autosUrl = "http://localhost:8100/api/automobiles/";
+    const autosResponse = await fetch(autosUrl);
+    const { autos } = await autosResponse.json();
+    let vins = [];
+    autos.forEach((auto) => {
+      vins.push(auto);
+    });
+    this.setState({ ...this.state, autos: vins });
+  }
+
+  async fetchSalesStaffs() {
+    const salesStaffsUrl = "http://localhost:8090/api/salesstaffs/";
+    const salesStaffsResponse = await fetch(salesStaffsUrl);
+    const { sales_staffs } = await salesStaffsResponse.json();
+    let names = [];
+    sales_staffs.forEach((name) => {
+      names.push(sales_staff);
+    });
+    this.setState({ ...this.state, sales_staffs: names });
+  }
+
+  async fetchCustomers() {
+    const customersUrl = "http://localhost:8090/api/customers/";
+    const customersResponse = await fetch(customersUrl);
+    const { customers } = await customersResponse.json();
+    let names = [];
+    customers.forEach((name) => {
+      names.push(customer);
+    });
+    this.setState({ ...this.state, customers: names });
+  }
+
+  async componentDidMount() {
+    fetchAutomobiles();
+    fetchSalesStaffs();
+    fetchCustomers();
   }
 
   handleChange(event) {
