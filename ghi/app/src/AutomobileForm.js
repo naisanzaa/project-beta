@@ -7,7 +7,7 @@ class AutomobileForm extends React.Component {
       color: "",
       year: "",
       vin: "",
-      model: "",
+      model_id: "",
       models: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -36,11 +36,12 @@ class AutomobileForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
+    delete data.models;
     console.log(data);
 
     const automobileUrl = "http://localhost:8100/api/automobiles/";
     const fetchConfig = {
-      method: "post",
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -112,8 +113,8 @@ class AutomobileForm extends React.Component {
                   value={this.state.model}
                   onChange={this.handleChange}
                   required
-                  name="model"
-                  id="model"
+                  name="model_id"
+                  id="model_id"
                   className="form-select"
                 >
                   <option value="">Choose a vehicle model</option>

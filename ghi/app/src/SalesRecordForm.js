@@ -56,6 +56,9 @@ class SalesRecordForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
+    delete data.autos;
+    delete data.sales_staffs;
+    delete data.customers;
     console.log(data);
 
     const salesRecordUrl = "http://localhost:8090/api/sales/";
@@ -100,7 +103,7 @@ class SalesRecordForm extends React.Component {
                   <option value="">Choose an automobile</option>
                   {this.state.autos.map((auto) => {
                     return (
-                      <option key={auto.vin} value={auto.id}>
+                      <option key={auto.vin} value={auto.vin}>
                         {auto.vin}
                       </option>
                     );
