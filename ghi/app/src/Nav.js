@@ -141,24 +141,24 @@ function Nav() {
               >
                 Register a Manufacturer
               </NavLink>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/automobiles"
-                >
-                  Automobiles
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/automobiles/new"
-                >
-                  Register a Automobile
-                </NavLink>
-              </li>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link active"
+                aria-current="page"
+                to="/automobiles"
+              >
+                Automobiles
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link active"
+                aria-current="page"
+                to="/automobiles/new"
+              >
+                Register a Automobile
+              </NavLink>
             </li>
           </ul>
         </div>
