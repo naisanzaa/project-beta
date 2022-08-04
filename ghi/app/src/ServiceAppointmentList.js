@@ -46,6 +46,8 @@ export default function ServiceAppointmentList() {
         return appointment.finished === false;
     }
 
+    // Function to change boolean value of service appointment finished = true
+    //      when finishing a service appointment
     const handleFinish = async(service) => {
         const data = {...service}
         data.finished = true
@@ -101,8 +103,10 @@ export default function ServiceAppointmentList() {
                             <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
                             <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
                             <td>{ appointment.technician.name }</td>
-                            <td><button onClick={ () => handleCancel(appointment.id)}>Cancel?</button></td>
-                            <td><button onClick={ () => handleFinish(appointment)}>Finished?</button></td>
+                            <td><button onClick={ () => handleCancel(appointment.id)}
+                                className="btn btn-danger">Cancel</button></td>
+                            <td><button onClick={ () => handleFinish(appointment)}
+                            className="btn btn-success">Finished</button></td>
                         </tr>
                     );
                 })}

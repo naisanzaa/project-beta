@@ -49,15 +49,20 @@ export default function ServiceAppointmentHistory() {
         return appointment.finished === true;
     }
 
+    // Update state of search query as characters are typed into search bar
     const handleChange = (event) => {
         setSearchQuery(event.target.value);
     };
 
+    // Filters the data based on what was typed and matches it with VIN
+    //      it is possible to use partial values for VIN
+    // Currently Functionality does not prevent seeing all appts with no input text
+    //      Workaround is disabling button if no input text
     const handleSearch = (event) =>{
         event.preventDefault();
         let result = [];
         result = serviceAppointments.filter((data) => {
-            return data.VIN.search(searchQuery) !== -1;
+            return (data.toString().trim().length > 0) ? data.VIN.search(searchQuery) !== -1: [];
         });
         setFilteredData(result);
     }
@@ -77,7 +82,7 @@ export default function ServiceAppointmentHistory() {
                 <div style={{ margin: '0 auto', marginTop: '10%' }}>
                     <label>Search VIN:</label>
                     <input onChange={handleChange} type="text" placeholder="Search VIN"/>
-                    <button type='submit' className="btn btn-primary">Search</button>
+                    <button disabled={searchQuery.length < 1} type='submit' className="btn btn-primary">Search</button>
                 </div>
             </form>
             <table className="table table-striped">
