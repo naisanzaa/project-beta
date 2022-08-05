@@ -15,14 +15,12 @@ In the service microservice, there will be two main models added with ways to cr
 ## Sales microservice
 
 We used Django to build out the backend model, views, urls for the Sales microservice.
-Settings: Ensure the Django app and project are linked as well as the CORS
-Model: AutomobileVO, SalesStaff, Customer and Sale
-Note: Sale model has ForeignKey relationships with AutomobileVO, SalesStaff and Customer
-Views: Utilizing function views to write "GET", "POST", "DELETE" for each model
-Note: Since the api_sales function take in sales_staff, customer and auto data, I made sure the content of each data entry is getting the correct value by comparing vin for auto, id for sales_staff and customer.
-URLs: incorporating different urlpatterns for both urls project and app files
-Encoders:
-Polling: Ensure the correct polling of data from Automobile in the Inventory API into AutomobileVO in Sales API by polling in the href and vin
+
+- Settings: Ensure the Django app and project are linked as well as the CORS
+- Model: AutomobileVO, SalesStaff, Customer and Sale. Note: Sale model has ForeignKey relationships with AutomobileVO, SalesStaff and Customer
+- Views: Utilizing function views to write "GET", "POST", "DELETE" for each model. Note: Since the api_sales function take in sales_staff, customer and auto data, I made sure the content of each data entry is getting the correct value by comparing vin for auto, id for sales_staff and customer.
+- URLs: incorporating different urlpatterns for both urls project and app files
+- Polling: Ensure the correct polling of data from Automobile in the Inventory API into AutomobileVO in Sales API by polling in the href and vin
 
 The frontend is set up in React as follow
 
@@ -36,18 +34,20 @@ The frontend is set up in React as follow
 | GET    | /api/automobiles/     | Get a list of automobiles                     |
 | POST   | /api/automobiles/new/ | Register a new automobile                     |
 
-Class components are utilized to create SalesStaffForm, CustomerForm, SalesRecordForm, AutomobileForm
-Both SalesStaffForm and CustomerForm are straight forward form. handleChange has been set up to dry up the code and avoid multiple handleFieldChange. To create a good user experience, the fields'data is deleted after submit
+1. Class components are utilized to create SalesStaffForm, CustomerForm, SalesRecordForm, AutomobileForm
 
-    AutomobileForm has a select component so I need to utilize componentDidMount to fetch the list of models for user to select. Once value has been selected, data.models will need to be deleted in the handleSubmit to ensure the content will match with the generated dictionary
+   - Both SalesStaffForm and CustomerForm are straight forward form. handleChange has been set up to dry up the code and avoid multiple handleFieldChange. To create a good user experience, the fields'data is deleted after submit
 
-    SalesRecordForm has 3 selected components so not only I have to use the componentDidMount to fetch the list of each datapoint, but also the forEach to generate the data into the correlated field. The data then being map into JSX.
+   - AutomobileForm has a select component so I need to utilize componentDidMount to fetch the list of models for user to select. Once value has been selected, data.models will need to be deleted in the handleSubmit to ensure the content will match with the generated dictionary
 
-Functional Components are utilized to create SalesList, SalesHistory, AutomobileList
-Utilizing useEffect and useState hooks to generate SalesList and AutomobileList. The data is then mapped out into the appropriate value-field in JSX with href as the key
+   - SalesRecordForm has 3 selected components so not only I have to use the componentDidMount to fetch the list of each datapoint, but also the forEach to generate the data into the correlated field. The data then being map into JSX.
 
-    Since we want to filter the sales history based on the salesstaff, we fetch the data from both api/sales/ and api/salesstaffs/. The list of sales staffs is generated into the select tag in the JSX. Once the user choose the sales staff, the data is being saved in selectedStaff. Both data will be mapped out through the if function in the JSX to display the sales history from the selectedStaff.
-        Note: since the selectedStaff will be a string, I use the Number constructor to change that into an integer in order to compare it with the sale.sales_staff.id
+2. Functional Components are utilized to create SalesList, SalesHistory, AutomobileList
+
+   - Utilizing useEffect and useState hooks to generate SalesList and AutomobileList. The data is then mapped out into the appropriate value-field in JSX with href as the key
+
+   - Since we want to filter the sales history based on the salesstaff, we fetch the data from both api/sales/ and api/salesstaffs/. The list of sales staffs is generated into the select tag in the JSX. Once the user choose the sales staff, the data is being saved in selectedStaff. Both data will be mapped out through the if function in the JSX to display the sales history from the selectedStaff.
+     - Note: since the selectedStaff will be a string, I use the Number constructor to change that into an integer in order to compare it with the sale.sales_staff.id
 
 App and Nav
 All forms and list then getting import to App.js and render on the Nav bar
