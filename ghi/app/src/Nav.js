@@ -19,146 +19,130 @@ function Nav() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-5 mb-lg-1">
-            <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/service-appointments/"
+          <ul className="navbar-nav mr-auto mb-5 mb-lg-1">
+            <NavLink className="nav-link active" aria-current="page" to="/">
+              Home
+            </NavLink>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle "
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Service Appointments
-              </NavLink>
+                Services
+              </a>
+              <ul className="dropdown-menu">
+                <li className="nav-item">
+                  <NavLink
+                    className="dropdown-item"
+                    to="/service-appointments/"
+                  >
+                    Service Appointments
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    className="dropdown-item"
+                    to="/service-appointments/new/"
+                  >
+                    Register an Appointment
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    className="dropdown-item"
+                    to="/service-appointments/history/"
+                  >
+                    Service History
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/technicians/new">
+                    Register a Technician
+                  </NavLink>
+                </li>
+              </ul>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/service-appointments/new/"
+
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Register an Appointment
-              </NavLink>
+                Sales
+              </a>
+              <ul className="dropdown-menu">
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/customers/new/">
+                    Register a Customer
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/salestaffs/new/">
+                    Register a Sales Staff
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/sales/">
+                    List of Sales
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/sales/new">
+                    Create a Sale Record
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/sales/history">
+                    Staff's Sales History
+                  </NavLink>
+                </li>
+              </ul>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/service-appointments/history/"
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Service History
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/technicians/new"
-              >
-                Register a Technician
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/customers/new/"
-              >
-                Register a Customer
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/salestaffs/new/"
-              >
-                Register a Sales Staff
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/sales/"
-              >
-                List of Sales
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/sales/new"
-              >
-                Create a Sale Record
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/sales/history"
-              >
-                Staff's Sales History
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/models"
-              >
-                Vehicle Models
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/models/new"
-              >
-                Register a Vehicle Model
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/manufacturers"
-              >
-                Manufacturers
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/manufacturers/new"
-              >
-                Register a Manufacturer
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/automobiles"
-              >
-                Automobiles
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/automobiles/new"
-              >
-                Register a Automobile
-              </NavLink>
+                Inventories
+              </a>
+              <ul className="dropdown-menu">
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/models">
+                    Vehicle Models
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/models/new">
+                    Register a Vehicle Model
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/manufacturers">
+                    Manufacturers
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/manufacturers/new">
+                    Register a Manufacturer
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/automobiles">
+                    Automobiles
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/automobiles/new">
+                    Register a Automobile
+                  </NavLink>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
