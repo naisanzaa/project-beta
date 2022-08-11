@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
-
+import "./App.css";
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           CarCar
+          <img src="/images/car-solid.svg" width="20" height="20" alt="" />
         </NavLink>
         <button
           className="navbar-toggler"
@@ -18,14 +19,14 @@ function Nav() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-collapse nav-tabs"
+          id="navbarSupportedContent"
+        >
           <ul className="navbar-nav mr-auto mb-5 mb-lg-1">
-            <NavLink className="nav-link active" aria-current="page" to="/">
-              Home
-            </NavLink>
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle "
+                className="nav-link dropdown-toggle"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -57,6 +58,7 @@ function Nav() {
                     Service History
                   </NavLink>
                 </li>
+                <div className="dropdown-divider"></div>
                 <li className="nav-item">
                   <NavLink className="dropdown-item" to="/technicians/new">
                     Register a Technician
@@ -65,7 +67,7 @@ function Nav() {
               </ul>
             </li>
 
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown ">
               <a
                 className="nav-link dropdown-toggle"
                 role="button"
@@ -75,16 +77,6 @@ function Nav() {
                 Sales
               </a>
               <ul className="dropdown-menu">
-                <li className="nav-item">
-                  <NavLink className="dropdown-item" to="/customers/new/">
-                    Register a Customer
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="dropdown-item" to="/salestaffs/new/">
-                    Register a Sales Staff
-                  </NavLink>
-                </li>
                 <li className="nav-item">
                   <NavLink className="dropdown-item" to="/sales/">
                     List of Sales
@@ -100,6 +92,17 @@ function Nav() {
                     Staff's Sales History
                   </NavLink>
                 </li>
+                <div className="dropdown-divider"></div>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/customers/new/">
+                    Register a Customer
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/salestaffs/new/">
+                    Register a Sales Staff
+                  </NavLink>
+                </li>
               </ul>
             </li>
             <li className="nav-item dropdown">
@@ -113,16 +116,6 @@ function Nav() {
               </a>
               <ul className="dropdown-menu">
                 <li className="nav-item">
-                  <NavLink className="dropdown-item" to="/models">
-                    Vehicle Models
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="dropdown-item" to="/models/new">
-                    Register a Vehicle Model
-                  </NavLink>
-                </li>
-                <li className="nav-item">
                   <NavLink className="dropdown-item" to="/manufacturers">
                     Manufacturers
                   </NavLink>
@@ -132,6 +125,18 @@ function Nav() {
                     Register a Manufacturer
                   </NavLink>
                 </li>
+                <div className="dropdown-divider"></div>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/models">
+                    Vehicle Models
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="dropdown-item" to="/models/new">
+                    Register a Vehicle Model
+                  </NavLink>
+                </li>
+                <div className="dropdown-divider"></div>
                 <li className="nav-item">
                   <NavLink className="dropdown-item" to="/automobiles">
                     Automobiles
