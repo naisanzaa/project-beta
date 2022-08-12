@@ -16,33 +16,46 @@ class SalesRecordForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  async fetchData(url, objectKey) {
+    const jsonResponse = await fetch(url);
+    const jsonData = await jsonResponse.json();
+    let arrayObject = [];
+    jsonData[objectKey].forEach((obj) => {
+      arrayObject.push(obj);
+    });
+    this.setState({ ...this.state, [objectKey]: arrayObject });
+  }
+
   async componentDidMount() {
-    const autosUrl = "http://localhost:8100/api/automobiles/";
-    const autosResponse = await fetch(autosUrl);
-    const { autos } = await autosResponse.json();
-    let vins = [];
-    autos.forEach((auto) => {
-      vins.push(auto);
-    });
-    this.setState({ ...this.state, autos: vins });
+    // const autosUrl = "http://localhost:8100/api/automobiles/";
+    // const autosResponse = await fetch(autosUrl);
+    // const { autos } = await autosResponse.json();
+    // let vins = [];
+    // autos.forEach((auto) => {
+    //   vins.push(auto);
+    // });
+    // this.setState({ ...this.state, autos: vins });
+    this.fetchData("http://localhost:8100/api/automobiles/", "autos");
 
-    const salesStaffsUrl = "http://localhost:8090/api/salesstaffs/";
-    const salesStaffsResponse = await fetch(salesStaffsUrl);
-    const { sales_staffs } = await salesStaffsResponse.json();
-    let names = [];
-    sales_staffs.forEach((sales_staff) => {
-      names.push(sales_staff);
-    });
-    this.setState({ ...this.state, sales_staffs: names });
+    // const salesStaffsUrl = "http://localhost:8090/api/salesstaffs/";
+    // const salesStaffsResponse = await fetch(salesStaffsUrl);
+    // const { sales_staffs } = await salesStaffsResponse.json();
+    // let names = [];
+    // sales_staffs.forEach((sales_staff) => {
+    //   names.push(sales_staff);
+    // });
+    // this.setState({ ...this.state, sales_staffs: names });
+    this.fetchData("http://localhost:8090/api/salesstaffs/", "sales_staffs");
 
-    const customersUrl = "http://localhost:8090/api/customers/";
-    const customersResponse = await fetch(customersUrl);
-    const { customers } = await customersResponse.json();
-    let customerNames = [];
-    customers.forEach((customer) => {
-      customerNames.push(customer);
-    });
-    this.setState({ ...this.state, customers: customerNames });
+    // const customersUrl = "http://localhost:8090/api/customers/";
+    // const customersResponse = await fetch(customersUrl);
+    // const { customers } = await customersResponse.json();
+    // let customerNames = [];
+    // customers.forEach((customer) => {
+    //   customerNames.push(customer);
+    // });
+    // this.setState({ ...this.state, customers: customerNames });
+    this.fetchData("http://localhost:8090/api/customers/", "customers");
   }
 
   handleChange(event) {

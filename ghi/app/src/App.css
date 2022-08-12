@@ -28,6 +28,6 @@
 
 .dropdown-item:hover,
 .dropdown-item.active {
-  background-color: green;
+  background-color: #c7c7c7;
   cursor: pointer;
 }
